@@ -1,5 +1,5 @@
 const User = require("../models/Users");
-const bcrypt = require("bcrypt.js");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Register User
@@ -23,6 +23,11 @@ const register = async (req, res) => {
       role,
     });
 
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" },
+    );
     res.status(201).json({
       message: "User registered successfully!",
       token,
@@ -49,7 +54,7 @@ const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const isMatch = await bcrypt.comapre(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
