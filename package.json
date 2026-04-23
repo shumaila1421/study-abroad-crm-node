@@ -10,6 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "call-bind-apply-helpers": "^1.0.2",
     "call-bound": "^1.0.4",
     "cors": "^2.8.6",
@@ -23,6 +24,7 @@
     "gopd": "^1.2.0",
     "ipaddr.js": "^1.9.1",
     "is-promise": "^4.0.0",
+    "jsonwebtoken": "^9.0.3",
     "math-intrinsics": "^1.1.0",
     "media-typer": "^1.1.0",
     "memory-pager": "^1.5.0",
