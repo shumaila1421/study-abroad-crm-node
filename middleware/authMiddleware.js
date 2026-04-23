@@ -23,10 +23,17 @@ const protect = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return re.status(401).json({
+    return res.status(401).json({
       message: "Not autorized, token failed",
     });
   }
 };
 
-module.exports = { protect };
+const adminOnly = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "Admin access only!" });
+  }
+  next();
+};
+
+module.exports = { protect, adminOnly };
