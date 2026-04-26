@@ -1,17 +1,13 @@
-// server/controllers/application.controller.js
-
 const applicationModel = require("../models/Application");
 
 const createApplication = async (req, res) => {
   try {
     const newApplication = new applicationModel({
       student: req.body.student,
-      country: req.body.country,
-      university: req.body.university,
       program: req.body.program,
-      intake: req.body.intake,
-      intakeYear: req.body.intakeYear,
+      country: req.body.country,
       status: req.body.status,
+      documents: req.body.documents,
       notes: req.body.notes,
       handledBy: req.body.handledBy,
     });
@@ -36,6 +32,8 @@ const getApplications = async (req, res) => {
     const applications = await applicationModel
       .find({})
       .populate("student", "name email phone")
+      .populate("program", "name university category")
+      .populate("country", "name code")
       .populate("handledBy", "name email");
 
     res.status(200).json({
@@ -58,6 +56,8 @@ const getSingleApplication = async (req, res) => {
     const application = await applicationModel
       .findById(id)
       .populate("student", "name email phone")
+      .populate("program", "name university category")
+      .populate("country", "name code")
       .populate("handledBy", "name email");
 
     if (!application) {

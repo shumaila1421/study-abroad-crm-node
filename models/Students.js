@@ -38,16 +38,48 @@ const studentSchema = new mongoose.Schema(
       enum: ["matric", "intermediate", "bachelor", "master"],
     },
 
+    budget: {
+      type: Number,
+    },
+
+    ieltsStatus: {
+      type: String,
+      enum: ["not-given", "booked", "given"],
+      default: "not-given",
+    },
+
+    ieltsScore: {
+      type: Number,
+    },
+
+    countryPreference: {
+      type: String,
+    },
+
+    programPreference: {
+      type: String,
+    },
+
+    documents: [
+      {
+        name: { type: String },
+        url: { type: String },
+        uploadedAt: { type: Date, default: Date.now },
+      },
+    ],
+
     status: {
       type: String,
       enum: [
-        "new",
-        "in-progress",
+        "inquiry",
+        "counseling",
+        "applied",
+        "offer-received",
         "visa-approved",
         "visa-rejected",
         "enrolled",
       ],
-      default: "new",
+      default: "inquiry",
     },
 
     assignedAgent: {
