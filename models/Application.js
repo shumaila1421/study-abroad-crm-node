@@ -53,7 +53,7 @@ const applicationSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: false,
+    timestamps: true,
   },
 );
 
