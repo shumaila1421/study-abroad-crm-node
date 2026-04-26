@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const applicationSchema = new mongoose.Schema(
   {
     student: {
@@ -7,43 +6,52 @@ const applicationSchema = new mongoose.Schema(
       ref: "Student",
       required: true,
     },
-    country: {
-      type: String,
-      required: true,
-    },
-    university: {
-      type: String,
-      required: true,
-    },
+
     program: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Program",
       required: true,
     },
-    intake: {
-      type: String,
-      enum: ["spring", "summer", "fall", "winter"],
+
+    country: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Country",
       required: true,
     },
-    intakeYear: {
-      type: Number,
-      required: true,
-    },
+
     status: {
       type: String,
       enum: [
-        "pending",
         "submitted",
         "under-review",
-        "accepted",
+        "conditional-offer",
+        "final-offer",
         "rejected",
-        "deferred",
+        "withdrawn",
       ],
-      default: "pending",
+      default: "submitted",
     },
+
+    documents: [
+      {
+        name: { type: String },
+        isSubmitted: { type: Boolean, default: false },
+      },
+    ],
+
+    timeline: [
+      {
+        status: { type: String },
+        date: { type: Date, default: Date.now },
+        note: { type: String },
+      },
+    ],
+
     appliedDate: {
       type: Date,
       default: Date.now,
     },
+
     notes: {
       type: String,
     },
@@ -56,7 +64,6 @@ const applicationSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
-
 const Application = mongoose.model("Application", applicationSchema);
 
 module.exports = Application;

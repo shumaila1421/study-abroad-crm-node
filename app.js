@@ -8,6 +8,7 @@ const applicationRoutes = require("./routes/application.routes");
 const visaRoutes = require("./routes/visa.routes");
 const agentRoutes = require("./routes/agent.routes");
 const countryRoutes = require("./routes/country.routes");
+const programRoutes = require("./routes/program.routes");
 
 dotenv.config();
 connectDB();
@@ -24,6 +25,7 @@ app.use("/api/v1/applications", applicationRoutes);
 app.use("/api/v1/visas", visaRoutes);
 app.use("/api/v1/agents", agentRoutes);
 app.use("/api/v1/countries", countryRoutes);
+app.use("/api/v1/programs", programRoutes);
 
 app.get("/", (req, res) => {
   res.json("Server is running!");
